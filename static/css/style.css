@@ -359,7 +359,8 @@ input:focus-visible {
     z-index: 3;
 }
 
-/* SPOTIFY SOUND WAVES - REPLACES INFINITY SYMBOL */
+
+/* SPOTIFY SOUND WAVES */
 
 .vinyl-center span {
     display: block;
@@ -390,6 +391,9 @@ input:focus-visible {
     }
 }
 
+
+/* ROTATING OUTER TEXT */
+
 .orbit-label {
     position: absolute;
 
@@ -400,6 +404,19 @@ input:focus-visible {
     line-height: 1.7;
 
     z-index: 4;
+
+    transform-origin: center center;
+    animation: labelRotate 12s linear infinite;
+}
+
+@keyframes labelRotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .label-top {
