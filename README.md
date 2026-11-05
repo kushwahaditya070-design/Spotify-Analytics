@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Spotify Analytics — Flask + 3 trained ML models
 
 This project recreates the supplied cream / editorial Spotify Analytics interface and connects the three supplied model files.
@@ -85,3 +86,7 @@ The clustering output is intentionally reported as the model's cluster label onl
 - Chart.js is loaded from its public CDN, so charts need an internet connection; the rest of the Flask app runs locally.
 - The original model files are copied into `models/` without retraining or modifying them.
 - The project includes an API/model health endpoint. Since model pickle files are executable serialization formats, loading is done at app startup; run locally in an environment where the supplied files and Python packages are trusted.
+=======
+# Spotify-Analytics
+spotify-analytics-ui
+>>>>>>> c52c4c78c2a973b3eda14f5ce78b570b0f62c6e9
