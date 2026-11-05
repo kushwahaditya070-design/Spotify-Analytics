@@ -1,4 +1,3 @@
-
 /* ==========================================
    SPOTIFY ANALYTICS
    Premium Editorial Design
@@ -360,17 +359,25 @@ input:focus-visible {
     z-index: 3;
 }
 
+/* SPOTIFY SOUND WAVES - REPLACES INFINITY SYMBOL */
+
 .vinyl-center span {
     display: block;
+    width: 48px;
+    height: 48px;
 
-    color: #fff3e8;
-
-    font-family: Arial, sans-serif;
-    font-size: clamp(35px, 5vw, 55px);
-    font-weight: 400;
+    font-size: 0;
     line-height: 1;
+    transform: none;
+}
 
-    transform: translate(0, -2px);
+.vinyl-center span::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    background: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23fff3e8' stroke-linecap='round' stroke-width='2.1'%3E%3Cpath d='M3.8 8.2c5.2-1.6 11.3-.9 16.1 1.8'/%3E%3Cpath d='M5 12c4.3-1.2 9.3-.6 13.1 1.6'/%3E%3Cpath d='M6.2 15.7c3.3-.8 7-.3 9.9 1.2'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 @keyframes vinylRotate {
