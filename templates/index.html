@@ -1,0 +1,572 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Spotify Analytics — Every track has a story</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<header class="topbar">
+
+    <a class="brand" href="#discover">
+        <span class="brand-mark">◉</span>
+        <span>SPOTIFY <small>ANALYTICS</small></span>
+    </a>
+
+    <nav class="topnav">
+        <a href="#discover">Discover</a>
+        <a href="#studio">ML Studio</a>
+        <a href="#insights">Insights</a>
+    </nav>
+
+    <button class="refresh-btn" id="refreshBtn">
+        ⟳ <span>Refresh data</span>
+    </button>
+
+</header>
+
+<main>
+
+<!-- =================================
+     HERO / DISCOVER
+================================= -->
+
+<section class="hero section-anchor" id="discover">
+
+    <div class="hero-copy">
+
+        <div class="eyebrow">
+            <i></i> MUSIC DATA INTELLIGENCE
+        </div>
+
+        <h1>
+            Every track
+            <br>
+            has
+            <br>
+            <em>a story.</em>
+        </h1>
+
+        <p>
+            Explore the patterns, sounds and signals hidden inside
+            <br class="desktop-only">
+            your Spotify dataset.
+        </p>
+
+        <div class="hero-tags">
+            <span>♫ &nbsp; REAL DATASET</span>
+            <span>✣ &nbsp; MACHINE LEARNING</span>
+        </div>
+
+    </div>
+
+    <!-- VINYL RECORD -->
+
+    <div class="vinyl-wrap" aria-label="Rotating vinyl record">
+
+        <span class="orbit-label label-top">
+            SOUND
+            <br>
+            IN MOTION
+        </span>
+
+        <span class="orbit-label label-bottom">
+            DATA / 01
+        </span>
+
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+
+        <div class="vinyl">
+
+            <div class="grooves"></div>
+
+            <div class="vinyl-center">
+                <span>∞</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================
+     DASHBOARD / INSIGHTS
+================================= -->
+
+<section class="dashboard section-anchor" id="insights">
+
+    <aside class="sidebar">
+
+        <a class="side-link active" href="#insights">
+            <span>⌁</span>
+            Overview
+            <b></b>
+        </a>
+
+        <a class="side-link" href="#classification">
+            <span>♧</span>
+            Classification
+        </a>
+
+        <a class="side-link" href="#regression">
+            <span>▥</span>
+            Regression
+        </a>
+
+        <a class="side-link" href="#clustering">
+            <span>∿</span>
+            Clustering
+        </a>
+
+        <div class="api-status">
+
+            <i></i>
+
+            <span>
+                FLASK API
+                <b id="apiStatus">CHECKING</b>
+            </span>
+
+            <small id="apiDetail">
+                Connecting to local service
+            </small>
+
+        </div>
+
+    </aside>
+
+
+    <div class="dashboard-main">
+
+        <div class="section-heading">
+
+            <h2>Dataset overview</h2>
+
+            <span class="live-pill">
+                <i></i> LIVE DATA
+            </span>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <div class="stats-grid">
+
+            <article class="stat-card">
+
+                <div class="stat-icon">♫</div>
+
+                <small>Total tracks</small>
+
+                <strong id="totalTracks">—</strong>
+
+                <label>From your Spotify dataset</label>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <div class="stat-icon">⌁</div>
+
+                <small>Average popularity</small>
+
+                <strong id="avgPopularity">—</strong>
+
+                <label>From your Spotify dataset</label>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <div class="stat-icon">◉</div>
+
+                <small>Music genres</small>
+
+                <strong id="genreCount">—</strong>
+
+                <label>From your Spotify dataset</label>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <div class="stat-icon">∿</div>
+
+                <small>Average energy</small>
+
+                <strong id="avgEnergy">—</strong>
+
+                <label>From your Spotify dataset</label>
+
+            </article>
+
+        </div>
+
+
+        <!-- CHARTS -->
+
+        <div class="charts-grid">
+
+            <article class="panel chart-panel">
+
+                <div class="panel-kicker">
+                    MOST COMMON
+                    <span>01 / GENRE</span>
+                </div>
+
+                <h3>Genre distribution</h3>
+
+                <div class="chart-container">
+                    <canvas id="genreChart"></canvas>
+                </div>
+
+            </article>
+
+
+            <article class="panel chart-panel">
+
+                <div class="panel-kicker">
+                    TRACK SCORE
+                    <span>02 / SCORE</span>
+                </div>
+
+                <h3>Popularity spread</h3>
+
+                <div class="chart-container">
+                    <canvas id="popChart"></canvas>
+                </div>
+
+            </article>
+
+
+            <article class="panel chart-panel">
+
+                <div class="panel-kicker">
+                    AUDIO DNA
+                    <span>03 / SOUND</span>
+                </div>
+
+                <h3>Average audio features</h3>
+
+                <div class="chart-container">
+                    <canvas id="audioChart"></canvas>
+                </div>
+
+            </article>
+
+
+            <article class="panel notes-panel">
+
+                <div class="panel-kicker">DATA NOTES</div>
+
+                <h3>What the numbers say.</h3>
+
+                <div id="insightNotes" class="notes-list">
+
+                    <p class="muted">
+                        Upload your dataset to reveal real insights.
+                    </p>
+
+                </div>
+
+            </article>
+
+        </div>
+
+
+        <!-- DATASET UPLOAD -->
+
+        <div class="dataset-upload panel">
+
+            <div>
+
+                <div class="panel-kicker">
+                    YOUR MUSIC LIBRARY
+                </div>
+
+                <h3>Bring your dataset into the story.</h3>
+
+                <p>
+                    Upload a Spotify CSV to calculate the overview
+                    and charts from your own tracks.
+                </p>
+
+            </div>
+
+            <label class="upload-button">
+
+                Choose CSV
+
+                <input
+                    type="file"
+                    id="datasetFile"
+                    accept=".csv"
+                >
+
+            </label>
+
+            <span id="uploadStatus" class="upload-status">
+                No dataset loaded
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================
+     MACHINE LEARNING STUDIO
+================================= -->
+
+<section class="studio section-anchor" id="studio">
+
+    <div class="studio-heading">
+
+        <div>
+
+            <div class="eyebrow">
+                PREDICT / EXPLORE / DISCOVER
+            </div>
+
+            <h2>Machine learning studio</h2>
+
+        </div>
+
+        <span class="model-count">03 MODELS</span>
+
+    </div>
+
+
+    <!-- MODEL TABS -->
+
+    <div class="model-tabs" role="tablist">
+
+        <button
+            type="button"
+            class="model-tab active"
+            data-tab="classification"
+            role="tab"
+            aria-selected="true">
+
+            ♧ &nbsp; Classification
+
+        </button>
+
+
+        <button
+            type="button"
+            class="model-tab"
+            data-tab="regression"
+            role="tab"
+            aria-selected="false">
+
+            ▥ &nbsp; Regression
+
+        </button>
+
+
+        <button
+            type="button"
+            class="model-tab"
+            data-tab="clustering"
+            role="tab"
+            aria-selected="false">
+
+            ∿ &nbsp; Clustering
+
+        </button>
+
+    </div>
+
+
+    <!-- MODEL CARDS -->
+
+    <div class="model-grid">
+
+
+        <!-- CLASSIFICATION -->
+
+        <article
+            class="model-card section-anchor active"
+            id="classification"
+            role="tabpanel">
+
+            <div class="model-head">
+
+                <div>
+
+                    <div class="panel-kicker">
+                        MODEL / 01
+                    </div>
+
+                    <h3>Genre classification</h3>
+
+                    <p>
+                        Predict the genre class from the track's audio signature.
+                    </p>
+
+                </div>
+
+                <span class="model-symbol">♫</span>
+
+            </div>
+
+
+            <form data-task="classification" class="predict-form">
+
+                <div class="feature-grid"></div>
+
+                <button class="run-btn" type="submit">
+                    Run classification <span>↗</span>
+                </button>
+
+            </form>
+
+            <div class="result" aria-live="polite"></div>
+
+        </article>
+
+
+        <!-- REGRESSION -->
+
+        <article
+            class="model-card section-anchor"
+            id="regression"
+            role="tabpanel">
+
+            <div class="model-head">
+
+                <div>
+
+                    <div class="panel-kicker">
+                        MODEL / 02
+                    </div>
+
+                    <h3>Popularity regression</h3>
+
+                    <p>
+                        Estimate a track's popularity score from its audio features.
+                    </p>
+
+                </div>
+
+                <span class="model-symbol">↗</span>
+
+            </div>
+
+
+            <form data-task="regression" class="predict-form">
+
+                <div class="feature-grid"></div>
+
+                <button class="run-btn" type="submit">
+                    Run regression <span>↗</span>
+                </button>
+
+            </form>
+
+            <div class="result" aria-live="polite"></div>
+
+        </article>
+
+
+        <!-- CLUSTERING -->
+
+        <article
+            class="model-card section-anchor"
+            id="clustering"
+            role="tabpanel">
+
+            <div class="model-head">
+
+                <div>
+
+                    <div class="panel-kicker">
+                        MODEL / 03
+                    </div>
+
+                    <h3>Music clustering</h3>
+
+                    <p>
+                        Find the cluster assigned by your trained K-Means model.
+                    </p>
+
+                </div>
+
+                <span class="model-symbol">◎</span>
+
+            </div>
+
+
+            <form data-task="clustering" class="predict-form">
+
+                <div class="feature-grid"></div>
+
+                <button class="run-btn" type="submit">
+                    Run clustering <span>↗</span>
+                </button>
+
+            </form>
+
+            <div class="result" aria-live="polite"></div>
+
+        </article>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <span>
+            SPOTIFY ANALYTICS
+            <b>◉</b>
+        </span>
+
+        <span>MADE OF MUSIC &amp; DATA</span>
+
+        <a href="#discover">BACK TO TOP ↑</a>
+
+    </footer>
+
+</section>
+
+</main>
+
+
+<!-- TOAST -->
+
+<div class="toast" id="toast"></div>
+
+
+<!-- JAVASCRIPT -->
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
