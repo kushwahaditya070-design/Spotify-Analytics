@@ -240,6 +240,7 @@ input:focus-visible {
 }
 
 
+
 /* ==========================================
    VINYL RECORD
 ========================================== */
@@ -258,10 +259,17 @@ input:focus-visible {
     isolation: isolate;
 }
 
+/* ==========================================
+   ORBIT CIRCLES
+========================================== */
+
 .orbit {
     position: absolute;
     border-radius: 50%;
     pointer-events: none;
+
+    /* Orbit stays fixed */
+    animation: none !important;
 }
 
 .orbit-one {
@@ -277,6 +285,10 @@ input:focus-visible {
 
     border: 1px dashed #d8cfc2;
 }
+
+/* ==========================================
+   VINYL RECORD
+========================================== */
 
 .vinyl {
     width: 68%;
@@ -301,12 +313,18 @@ input:focus-visible {
         inset 0 0 12px rgba(255,255,255,.08);
 
     animation: vinylRotate 12s linear infinite;
+
     will-change: transform;
 }
+
+/* ==========================================
+   VINYL GROOVES
+========================================== */
 
 .grooves {
     position: absolute;
     inset: 0;
+
     border-radius: 50%;
 
     background:
@@ -322,14 +340,24 @@ input:focus-visible {
     border: 1px solid rgba(255,255,255,.04);
 }
 
+/* ==========================================
+   VINYL INNER RING
+========================================== */
+
 .vinyl::after {
     content: "";
+
     position: absolute;
     inset: 4%;
+
     border-radius: 50%;
 
     border: 1px solid rgba(255,255,255,.06);
 }
+
+/* ==========================================
+   CENTER LABEL
+========================================== */
 
 .vinyl-center {
     position: absolute;
@@ -359,27 +387,22 @@ input:focus-visible {
     z-index: 3;
 }
 
-
-/* SPOTIFY SOUND WAVES */
-
 .vinyl-center span {
     display: block;
-    width: 48px;
-    height: 48px;
 
-    font-size: 0;
+    color: #fff3e8;
+
+    font-family: Arial, sans-serif;
+    font-size: clamp(35px, 5vw, 55px);
+    font-weight: 400;
     line-height: 1;
-    transform: none;
+
+    transform: translate(0, -2px);
 }
 
-.vinyl-center span::before {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 100%;
-
-    background: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23fff3e8' stroke-linecap='round' stroke-width='2.1'%3E%3Cpath d='M3.8 8.2c5.2-1.6 11.3-.9 16.1 1.8'/%3E%3Cpath d='M5 12c4.3-1.2 9.3-.6 13.1 1.6'/%3E%3Cpath d='M6.2 15.7c3.3-.8 7-.3 9.9 1.2'/%3E%3C/g%3E%3C/svg%3E");
-}
+/* ==========================================
+   VINYL ROTATION
+========================================== */
 
 @keyframes vinylRotate {
     from {
@@ -391,42 +414,62 @@ input:focus-visible {
     }
 }
 
-
-/* ROTATING OUTER TEXT */
+/* ==========================================
+   ORBIT LABELS
+   FIXED + STRAIGHT
+========================================== */
 
 .orbit-label {
     position: absolute;
 
     color: var(--soft);
+
     font-family: var(--mono);
     font-size: 10px;
-    letter-spacing: 1px;
+
+    letter-spacing: 1.5px;
     line-height: 1.7;
 
     z-index: 4;
 
-    transform-origin: center center;
-    animation: labelRotate 12s linear infinite;
+    white-space: nowrap;
+
+    /* Prevent text rotation */
+    transform: none !important;
+    rotate: none !important;
+    writing-mode: horizontal-tb !important;
+
+    /* Labels never animate */
+    animation: none !important;
+    transition: none;
 }
 
-@keyframes labelRotate {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
+/* ==========================================
+   SOUND IN MOTION
+   TOP RIGHT
+========================================== */
 
 .label-top {
     top: 8%;
-    right: -3%;
+    right: 0%;
+
+    text-align: center;
+
+    transform: none !important;
 }
+
+/* ==========================================
+   DATA / 01
+   BOTTOM LEFT
+========================================== */
 
 .label-bottom {
     bottom: 8%;
-    left: -3%;
+    left: 0%;
+
+    text-align: center;
+
+    transform: none !important;
 }
 
 
